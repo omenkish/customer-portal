@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :tickets do
+    member do
+      get :close_ticket, as: 'close'
+      get :make_ticket_active, as: 'activate'
+    end
+  end
 end

@@ -1,0 +1,40 @@
+<div class="card mb-4 box-shadow">
+  <div class="card-body">
+    <h5 class="card-title"><%= ticket.title %></h5>
+    <p class="card-text"><%= ticket.description %></p>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="col-md-12 buttons">
+          <button type="button" class="btn btn-sm btn-secondary">
+            <%= link_to "View", ticket, class: "text-light" %>
+          </button>
+          <button type="button" class="btn btn-sm btn-info">
+            <%= link_to 'Edit', edit_ticket_path(ticket), class: "text-light" %>
+          </button>
+          <button type="button" class="btn btn-sm btn-danger">
+            <%= link_to 'Delete', ticket, method: :delete,
+                        data: {confirm: 'Are you sure?'} ,
+                        class: "text-light"%>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-5 d-flex justify-content-end align-items-center ">
+        <div class="buttons">
+          <button type="button" class="btn btn-sm btn-dark">
+            <% if  ticket.active? %>
+              <%= link_to 'Close Ticket', close_ticket_path(ticket), class: "text-light" %>
+            <% else %>
+              <%= link_to 'Make Ticket Active', activate_ticket_path(ticket), class: "text-light" %>
+            <% end %>
+          </button>
+        </div>
+        Status:
+          <span class="text text-<%= ticket.active? ? 'success' : 'danger' %> font-weight-bold">
+            <%= ticket.status.capitalize %>
+          </span>
+      </div>
+    </div>
+  </div>
+</div>

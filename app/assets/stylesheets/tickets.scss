@@ -1,0 +1,21 @@
+// Place all the styles related to the Tickets controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.buttons {
+  button {
+    min-width: 6em;
+    margin-right: 0.5em;
+
+    a {
+      text-decoration: none;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.card-footer {
+  margin: 0;
+}

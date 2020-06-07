@@ -10,6 +10,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <main class='<%= controller.controller_name %>'>
+      <%= render 'layouts/flash_message' %>
+      <%= yield %>
+    </main>
   </body>
 </html>
