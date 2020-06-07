@@ -1,6 +1,7 @@
 class Ticket < ApplicationRecord
   enum status: { active: 0, closed: 1 }
 
+  belongs_to :user
   validates_presence_of :title, :description
   validates :status, inclusion: statuses.keys
 

@@ -19,7 +19,8 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe 'Ticket#close' do
-    let(:ticket) { create(:ticket)}
+    let!(:user) { create(:user)}
+    let(:ticket) { create(:ticket, user_id: user.id)}
 
     it 'marks ticket as closed' do
       expect {

@@ -4,7 +4,8 @@ RSpec.describe "Tickets", type: :request do
   # include ApplicationHelper
   # include TicketsHelper
 
-  let!(:ticket) { create(:ticket) }
+  let!(:ticket) { create(:ticket, user_id: user.id) }
+  let(:user) { create(:user) }
 
   describe "GET #index" do
     it "renders index template" do
