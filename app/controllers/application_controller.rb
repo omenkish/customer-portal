@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   #Confirms and admin user
   def allow_only_admins
-    unless current_user.admin?
+    unless current_user&.admin?
       flash[:danger] = "You are not authorized to access this page."
       redirect_to tickets_url
     end
