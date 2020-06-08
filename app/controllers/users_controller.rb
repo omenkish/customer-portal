@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  include RedirectUsers
-
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, except: %i[:new :create]
 
+  include RedirectUsers
   # GET /users
   def index
     @users = User.all

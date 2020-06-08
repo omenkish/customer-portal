@@ -32,12 +32,12 @@ RSpec.describe Ticket, type: :model do
     end
   end
 
-  describe 'Ticket#active' do
+  describe 'Ticket#reopen' do
     let(:ticket) { create(:ticket, status: Ticket.statuses['closed'])}
 
     it 'marks ticket as active' do
       expect {
-        ticket.return_to_active
+        ticket.reopen
         ticket.reload
       }.to change {
         ticket.active?

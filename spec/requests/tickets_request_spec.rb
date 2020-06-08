@@ -1,32 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe "Tickets", type: :request do
-  # include ApplicationHelper
-  # include TicketsHelper
 
   let!(:ticket) { create(:ticket, user_id: user.id) }
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
 
   describe "GET #index" do
     it "renders index template" do
+      post login_path, params: { email: user.email, password: user.password  }
       get tickets_path
 
-      expect(response).to have_http_status(200)
       expect(response).to render_template(:index)
     end
   end
 
   describe "GET #show" do
     it "renders show template" do
+      post login_path, params: { email: user.email, password: user.password  }
       get ticket_path(ticket)
 
-      expect(response).to have_http_status(200)
+      expect(response).to be_successful
       expect(response).to render_template(:show)
     end
   end
 
   describe "DELETE #destroy" do
     it "redirects to index template with 204 status code" do
+      post login_path, params: { email: user.email, password: user.password  }
       delete ticket_path(ticket)
 
       expect(response).to have_http_status(302)
@@ -38,7 +38,7 @@ RSpec.describe "Tickets", type: :request do
     it "marks a ticket as closed" do
       get close_ticket_path(ticket)
       expect {
-        expect(response).to have_http_status(200)
+        expect(response).to redirect_to(tickets_path)
         ticket.reload
       }.to change {
         ticket.closed?
@@ -51,7 +51,7 @@ RSpec.describe "Tickets", type: :request do
 
         get close_ticket_path(ticket)
         expect {
-          expect(response).to have_http_status(400)
+          expect(response).to redirect_to(tickets_path)
           ticket.reload
         }.to_not change {
           ticket.closed?
@@ -60,12 +60,12 @@ RSpec.describe "Tickets", type: :request do
     end
   end
 
-  describe "GET #make_ticket_active" do
+  describe "GET #reopen_ticket" do
     context "ticket is already active" do
       it "returns 400 status code" do
-        get activate_ticket_path(ticket)
+        get reopen_ticket_path(ticket)
         expect {
-          expect(response).to have_http_status(400)
+          expect(response).to redirect_to(tickets_path)
           ticket.reload
         }.to_not change {
           ticket.active?
@@ -76,9 +76,9 @@ RSpec.describe "Tickets", type: :request do
     it "marks ticket as active" do
       ticket.update_attribute("status", 1)
 
-      get activate_ticket_path(ticket)
+      get reopen_ticket_path(ticket)
       expect {
-        expect(response).to have_http_status(200)
+        expect(response).to redirect_to(tickets_path)
         ticket.reload
       }.to change {
         ticket.active?

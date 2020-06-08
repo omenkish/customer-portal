@@ -1,9 +1,15 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[show edit update destroy close_ticket make_ticket_active]
+  before_action :set_ticket, only: %i[show edit update destroy close_ticket reopen_ticket]
+  before_action :logged_in_user, only: %i[index :create :destroy]
+  before_action :correct_user, only: :destroy
 
-  include RedirectUsers
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_ticket
 
   def index
+    if current_user.customer?
+      return @tickets = current_user.tickets.recent
+    end
+
     @tickets = Ticket.recent
   end
 
@@ -18,46 +24,42 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
-
-    respond_to do |format|
-      if @ticket.save
-        format.html { handle_redirect(@ticket, 'Ticket was successfully created.', :success, :created) }
-      else
-        format.html { render :new }
-      end
+    @ticket = current_user.tickets.build(ticket_params)
+    if @ticket.save
+      flash[:success] = "Ticket was successfully created."
+      return redirect_to @ticket
     end
+
+    render "new"
   end
 
   def update
-    respond_to do |format|
-      if @ticket.update(ticket_params)
-        format.html { handle_redirect(@ticket, 'Ticket was successfully updated.', :success, :ok) }
-      else
-        format.html { render :edit }
-      end
+    if @ticket.update(ticket_params)
+      flash[:success] = "Ticket was successfully updated."
+      return redirect_to @ticket
     end
+    render "edit"
   end
 
   def destroy
     @ticket.destroy
     respond_to do |format|
       format.html {
-        handle_redirect(tickets_url, 'Ticket was successfully deleted.', :ok)
+        handle_redirect(tickets_url, "Ticket was successfully deleted.", :success)
       }
     end
   end
 
   def close_ticket
-    return handle_redirect(tickets_url, "Ticket is already closed", :danger, 400) if @ticket.closed?
+    return handle_redirect(tickets_url, "This ticket is already closed", :danger) if @ticket.closed?
     @ticket.close
-    handle_redirect(tickets_url, "Ticket closed successfully", :success, :ok)
+    handle_redirect(tickets_url, "Ticket closed successfully", :success)
   end
 
-  def make_ticket_active
-    return handle_redirect(tickets_url, "Ticket is already active", :danger, 400) if @ticket.active?
-    @ticket.return_to_active
-    handle_redirect(tickets_url, "Ticket is now active", :success, :ok)
+  def reopen_ticket
+    return handle_redirect(tickets_url, "This ticket is already active", :danger) if @ticket.active?
+    @ticket.reopen
+    handle_redirect(tickets_url, "Ticket is now active", :success)
   end
 
   private
@@ -69,5 +71,21 @@ class TicketsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
     params.require(:ticket).permit(:title, :description, :status, :user_id)
+  end
+
+  def invalid_ticket
+    logger.error "Attempt to access invalid ticket #{params[:id]}"
+    handle_redirect(tickets_url, "Invalid ticket", :danger)
+  end
+
+  # check if the user trying to perform an action is the owner of the ticket
+  def correct_user
+    @ticket = current_user&.tickets.find_by(id: params[:id])
+    redirect_to root_url if @ticket.nil?
+  end
+
+  def handle_redirect(path, msg, response_type)
+    flash[response_type] = msg
+    redirect_to path
   end
 end

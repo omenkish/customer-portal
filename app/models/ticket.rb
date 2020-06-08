@@ -10,10 +10,11 @@ class Ticket < ApplicationRecord
   end
 
   def close
-    closed!
+    # closed!
+    update_columns(status: 1, closed_at: Time.zone.now)
   end
 
-  def return_to_active
+  def reopen
     active!
   end
 end

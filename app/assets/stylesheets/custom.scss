@@ -1,0 +1,18 @@
+$gray-light: #777;
+$gray-medium-light: #eaeaea;
+$state-danger-text: red;
+
+#error_explanation {
+  color: $state-danger-text;
+  ul {
+    color: $state-danger-text;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error !optional;
+  .form-control {
+    border-color: $state-danger-text;
+  }
+}

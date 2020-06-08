@@ -23,14 +23,10 @@
       <div class="col-md-5 d-flex justify-content-end align-items-center ">
         <div class="buttons">
           <button type="button" class="btn btn-sm btn-dark">
-            <% if  ticket.active? %>
-              <%= link_to 'Close Ticket', close_ticket_path(ticket), class: "text-light" %>
-            <% else %>
-              <%= link_to 'Make Ticket Active', activate_ticket_path(ticket), class: "text-light" %>
-            <% end %>
+            <%= toggle_ticket_status(ticket) %>
           </button>
         </div>
-        Status:
+        Status: &nbsp;
           <span class="text text-<%= ticket.active? ? 'success' : 'danger' %> font-weight-bold">
             <%= ticket.status.capitalize %>
           </span>
