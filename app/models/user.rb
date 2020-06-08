@@ -6,11 +6,12 @@ class User < ApplicationRecord
   }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
 
-  has_many :tickets, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :tickets, -> { order('created_at DESC') }, dependent: :destroy
 
   before_save :downcase_email
 
-  validates :name,  presence: true, length: { maximum: 50 }
+  validates :name,  presence: true, length: { maximum: 80 }
 
   validates :email, presence: true, length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX },

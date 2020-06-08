@@ -1,0 +1,11 @@
+<%= form_for @comment, remote: true do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: 'form-control' %>
+  </div>
+  <input type="hidden" name="comment[ticket_id]" value="<%= id %>>">
+  <div class="form-group">
+    <%= f.submit 'Post Comment', class: 'btn btn-dark' %>
+  </div>
+<% end %>

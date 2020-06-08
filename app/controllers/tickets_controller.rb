@@ -14,6 +14,11 @@ class TicketsController < ApplicationController
   end
 
   def show
+    #Fetch ticket with its comments
+    @ticket = Ticket.includes(:comments).find(params[:id])
+
+    # Instantiate comment
+    @comment = Comment.new
   end
 
   def new

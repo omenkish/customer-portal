@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, except: %i[:new :create]
-  before_action :allow_only_admins, except: %i[:new :create, :destroy]
+  # before_action :logged_in_user, only: %i[:index :show :edit ]
+  # before_action :allow_only_admins, except: %i[:new :create, :destroy]
 
   include RedirectUsers
   # GET /users

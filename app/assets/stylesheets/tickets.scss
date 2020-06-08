@@ -19,3 +19,28 @@
 .card-footer {
   margin: 0;
 }
+
+.comment-card {
+  .card {
+    margin-top: 15px;
+
+    .card-text {
+      .comment-footer {
+        font-size: .8em;
+        font-style: italic;
+
+        .comment-name {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+.scroll {
+  background-color: #F5F5F5;
+  width: 100%;
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 20px;
+}
