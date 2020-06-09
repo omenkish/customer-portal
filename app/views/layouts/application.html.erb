@@ -8,10 +8,12 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap"  rel="stylesheet"/>
   </head>
 
   <body>
-    <main class='<%= controller.controller_name %>'>
+    <%= render partial: "shared/nav" %>
+    <main class='space-header <%= controller.controller_name %> '>
       <div class="col-lg-4 col-xl-4 col-md-4 mx-auto mt-5">
         <%= render 'layouts/flash_message' %>
       </div>

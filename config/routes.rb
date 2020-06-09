@@ -9,7 +9,13 @@ Rails.application.routes.draw do
     post   'login'  => :create
     delete 'logout' => :destroy
   end
-  resources :users, except: [:new]
+  resources :users, except: [:new] do
+    member do
+      get :create_admin, as: 'admin'
+      get :create_agent, as: 'agent'
+      get :create_customer, as: 'customer'
+    end
+  end
   resources :tickets do
     member do
       get :close_ticket, as: 'close'

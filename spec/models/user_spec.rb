@@ -44,11 +44,11 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'User#return_to_customer_role' do
+  describe 'User#revoke_admin_or_agent_privilege' do
     it 'return admin or agent to customer role' do
       user.admin!
       expect {
-        user.return_to_customer_role
+        user.revoke_admin_or_agent_privilege
         user.reload
       }.to change {
         user.customer?

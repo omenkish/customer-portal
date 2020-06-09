@@ -25,7 +25,7 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_user_url
+      get register_url
       expect(response).to be_successful
     end
   end

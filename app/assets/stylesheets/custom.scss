@@ -16,3 +16,51 @@ $state-danger-text: red;
     border-color: $state-danger-text;
   }
 }
+
+.space-header {
+  margin-top: 7em;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.brand-name {
+  text-decoration: none;
+  font-size: 1.4em;
+  color: #6c757d;
+
+  &:hover {
+     text-decoration: none;
+     color: #17a2b8;
+   }
+}
+
+.pagination {
+  margin-bottom: 0.8em;
+  .page-item {
+    .page-link {
+      color: #17a2b8;
+      background-color: transparent;
+    }
+  }
+  .active {
+    .page-link {
+      color: black;
+      border-color: black;
+    }
+  }
+}
+
+.navigation {
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  padding: 0 10px;
+  height: 72px;
+}
+
+#sidebarMenu {
+  position: fixed;
+  height: 100vh;
+}

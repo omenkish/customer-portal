@@ -1,15 +1,14 @@
-
-<h1 class="text-muted text-center mt-5"> All Tickets</h1>
+<%#= render partial: "shared/nav" %>
+<h3 class="text-muted text-center mt-5"> All Tickets</h3>
 
 <div class="col-lg-8 col-xl-8 col-md-8 mx-auto mt-3">
   <div class="buttons">
-    <button class="btn btn-dark mb-4">
-      <%= link_to "Create a Ticket", new_ticket_path, {class: "text-light"} %>
-    </button>
+      <%= link_to "Create a Ticket", new_ticket_path, {class: "btn btn-outline-dark mb-4"} %>
   </div>
 
   <div>
     <%= render @tickets %>
+    <%= paginate @tickets %>
   </div>
 
 </div>

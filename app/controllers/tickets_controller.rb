@@ -7,10 +7,10 @@ class TicketsController < ApplicationController
 
   def index
     if current_user.customer?
-      return @tickets = current_user.tickets.recent
+      return @tickets = current_user.tickets.recent.page(params[:page]).per(2)
     end
 
-    @tickets = Ticket.recent
+    @tickets = Ticket.recent.page(params[:page]).per(2)
   end
 
   def show
@@ -86,7 +86,7 @@ class TicketsController < ApplicationController
   # check if the user trying to perform an action is the owner of the ticket
   def correct_user
     @ticket = current_user&.tickets.find_by(id: params[:id])
-    redirect_to root_url if @ticket.nil?
+    handle_redirect(root_url, 'Only the owner of a ticket can delete it', :danger ) if @ticket.nil?
   end
 
   def handle_redirect(path, msg, response_type)

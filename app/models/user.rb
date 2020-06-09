@@ -28,7 +28,7 @@ class User < ApplicationRecord
     agent!
   end
 
-  def return_to_customer_role
+  def revoke_admin_or_agent_privilege
     customer!
   end
 

@@ -1,0 +1,7 @@
+<div class="d-flex flex-column flex-md-row align-items-center px-md-4 border-bottom fixed-top navigation">
+  <h5 class="my-0 mr-md-auto font-weight-bolder"><%= link_to 'Easy Tickets', tickets_url, class: 'brand-name' %></h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <%= nav_helper %>
+  </nav>
+  <%= render partial: 'shared/dropdown' if logged_in? %>
+</div>
