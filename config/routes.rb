@@ -23,5 +23,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get "*path", to: "sessions#new"
+  get "*path", to: "pages#page_not_found"
 end

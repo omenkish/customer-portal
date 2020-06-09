@@ -15,7 +15,7 @@
     <%= render partial: "shared/nav" %>
     <main class='space-header <%= controller.controller_name %> '>
       <div class="col-lg-4 col-xl-4 col-md-4 mx-auto mt-5">
-        <%= render 'layouts/flash_message' %>
+        <%= render 'layouts/flash_message' if @page_title.nil? %>
       </div>
       <%= yield %>
     </main>

@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :create_admin, :create_agent, :create_customer]
   # before_action :logged_in_user, only: %i[:index :show :edit ]
   # before_action :allow_only_admins, except: %i[:new :create, :destroy]
 
   include RedirectUsers
   # GET /users
   def index
+    @page_title = 'index'
     @users = User.all
   end
 
@@ -52,6 +53,26 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { handle_redirect(users_url, 'User was successfully destroyed.', :success) }
     end
+  end
+
+  def create_admin
+    @page_title = 'index'
+    return handle_redirect(users_url, 'This user is already an admin', :danger) if @user.admin?
+    handle_redirect(users_url, 'User is now an admin', :success) if @user&.become_an_admin
+  end
+
+  def create_agent
+    @page_title = 'index'
+    return handle_redirect(users_url, 'This user is already an agent', :danger) if @user.agent?
+
+    handle_redirect(users_url, 'This user is now an agent', :success) if @user&.become_an_agent
+  end
+
+  def create_customer
+    @page_title = 'index'
+    return handle_redirect(users_url, 'This user is already a customer', :danger) if @user.customer?
+
+    handle_redirect(users_url, 'This user is now a customer', :success) if @user&.revoke_admin_or_agent_privilege
   end
 
   private

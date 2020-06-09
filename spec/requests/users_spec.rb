@@ -10,7 +10,6 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      valid_user
       get users_url
       expect(response).to be_successful
     end
@@ -32,7 +31,6 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /edit" do
     it "render a successful response" do
-      valid_user
       get edit_user_url(valid_user)
       expect(response).to be_successful
     end
@@ -69,10 +67,11 @@ RSpec.describe "/users", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       it "updates the requested user" do
+        valid_attributes[:name] = "Enugbe"
         valid_user = User.create(valid_attributes)
-        patch user_url(valid_user), params: { user: valid_attributes }
+        patch user_url(valid_user), params: { user: valid_attributes, }
         valid_user.reload
-        skip("Add assertions for updated state")
+        expect(valid_user.name).to eq("Enugbe")
       end
 
       it "redirects to the user" do
@@ -102,6 +101,69 @@ RSpec.describe "/users", type: :request do
     it "redirects to the users list" do
       delete user_url(valid_user)
       expect(response).to redirect_to(users_url)
+    end
+  end
+
+  describe "GET /create_admin" do
+    it 'should fail if user is already an admin' do
+      valid_user.admin!
+      get admin_user_url(valid_user)
+      expect {
+        expect(response).to redirect_to(users_path)
+        valid_user.reload
+      }.to_not change { valid_user.admin? }
+    end
+
+    it 'should make a user an admin' do
+      get admin_user_path(valid_user)
+      expect {
+        expect(response).to redirect_to(users_path)
+        valid_user.reload
+      }.to change {
+        valid_user.admin?
+      }.to(true)
+    end
+  end
+
+  describe "GET /create_agent" do
+    it 'should fail if user is already an agent' do
+      valid_user.agent!
+      get agent_user_url(valid_user)
+      expect {
+        expect(response).to redirect_to(users_path)
+        valid_user.reload
+      }.to_not change { valid_user.agent? }
+    end
+
+    it 'should make a user an agent' do
+      get agent_user_path(valid_user)
+      expect {
+        expect(response).to redirect_to(users_path)
+        valid_user.reload
+      }.to change {
+        valid_user.agent?
+      }.to(true)
+    end
+  end
+
+  describe "GET /create_customer" do
+    it 'should fail if user is already a customer' do
+      get customer_user_url(valid_user)
+      expect {
+        expect(response).to redirect_to(users_path)
+        valid_user.reload
+      }.to_not change { valid_user.customer? }
+    end
+
+    it 'should make a user a customer' do
+      valid_user.agent!
+      get customer_user_path(valid_user)
+      expect {
+        expect(response).to redirect_to(users_path)
+        valid_user.reload
+      }.to change {
+        valid_user.customer?
+      }.to(true)
     end
   end
 end
