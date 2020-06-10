@@ -16,6 +16,12 @@ class Ticket < ApplicationRecord
   end
 
   def reopen
-    active!
+    update_columns(status: 0, closed_at: nil)
   end
+
+  def self.closed_since_last_month
+    where('status =? AND updated_at >= NOW() - INTERVAL 30 DAY', 1)
+        .pluck(:id, :title, :description, :status, :closed_at, :user_id, :created_at)
+  end
+
 end

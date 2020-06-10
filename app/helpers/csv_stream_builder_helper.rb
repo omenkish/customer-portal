@@ -1,13 +1,21 @@
-module TicketsHelper
-  def toggle_ticket_status(ticket)
-    link_to_display = ''
+module CsvStreamBuilderHelper
+  class CsvBuilder
 
-    if  ticket.active?
-      link_to_display = link_to 'Close Ticket', close_ticket_path(ticket), class: "text-light"
-    else
-      link_to_display = link_to 'Make Ticket Active', reopen_ticket_path(ticket), class: "text-light"
+    attr_accessor :output, :header, :data
+
+    def initialize(header, data, output = "")
+      @output = output
+      @header = header
+      @data = data
     end
-    link_to_display
+
+    def build
+      output << CSV.generate_line(header)
+      data.to_a.each do |row|
+        output << CSV.generate_line(row)
+      end
+      output
+    end
   end
 
   def build_csv_enumerator(header, data)
@@ -25,7 +33,8 @@ module TicketsHelper
   end
 
   private
+
   def csv_filename
-    "tickets-report-#{Time.zone.now.to_date.to_s(:default)}.csv"
+    "tickets-report-#{Time.zone.now.to_date.to_s}.csv"
   end
 end

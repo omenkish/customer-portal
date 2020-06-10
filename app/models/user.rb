@@ -32,7 +32,6 @@ class User < ApplicationRecord
     customer!
   end
 
-
   private
   # Converts email to all lower-case.
   def downcase_email

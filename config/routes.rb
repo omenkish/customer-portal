@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get :create_customer, as: 'customer'
     end
   end
+
+  get 'tickets_report' => 'tickets'
   resources :tickets do
     member do
       get :close_ticket, as: 'close'
@@ -23,5 +25,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get "*path", to: "pages#page_not_found"
+  get '*path', to: 'pages#page_not_found'
 end

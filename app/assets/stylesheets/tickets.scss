@@ -16,6 +16,11 @@
   }
 }
 
+.index-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card-footer {
   margin: 0;
 }

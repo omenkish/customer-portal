@@ -5,6 +5,8 @@ class TicketsController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_ticket
 
+  include CsvStreamBuilderHelper
+
   def index
     if current_user.customer?
       return @tickets = current_user.tickets.recent.page(params[:page]).per(5)
@@ -67,13 +69,24 @@ class TicketsController < ApplicationController
     handle_redirect(tickets_url, "Ticket is now active", :success)
   end
 
+  def tickets_report
+    @tickets = Ticket.closed_since_last_month
+
+    respond_to do |format|
+      format.html { redirect_to '/not-found'}
+      format.csv do
+        header = ['Id', 'Title', 'Description', 'Status', 'Closed At', 'User Id', 'Date Created']
+        self.response_body = build_csv_enumerator(header, @tickets)
+      end
+    end
+  end
+
   private
-  # Use callbacks to share common setup or constraints between actions.
+
   def set_ticket
     @ticket = Ticket.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
     params.require(:ticket).permit(:title, :description, :status, :user_id)
   end
