@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :create_admin, :create_agent, :create_customer]
-  # before_action :logged_in_user, only: %i[:index :show :edit ]
-  # before_action :allow_only_admins, except: %i[:new :create, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit ]
+  before_action :correct_user, only: %i[destroy edit update]
+  before_action :allow_only_admins, only: %i[index create_admin create_agent create_customer]
 
   include RedirectUsers
   # GET /users
@@ -29,7 +30,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { handle_redirect(@user, 'User was successfully created.', :success) }
+        # format.html { handle_redirect(@user, 'User was successfully created.', :success) }
+        format.html do
+          log_in(@user)
+          return redirect_back_or(@user)
+        end
       else
         format.html { render :new }
       end
@@ -85,4 +90,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :password,:password_confirmation, :email, :role)
     end
+
+  def correct_user
+    @user = User.find_by(id: params[:id])
+    handle_redirect(root_url, 'You cannot modify another user', :danger ) if current_user != @user
+  end
 end

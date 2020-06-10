@@ -73,7 +73,7 @@ class TicketsController < ApplicationController
     @tickets = Ticket.closed_since_last_month
 
     respond_to do |format|
-      format.html { redirect_to '/not-found'}
+      format.html { redirect_to "/not-found"}
       format.csv do
         header = ['Id', 'Title', 'Description', 'Status', 'Closed At', 'User Id', 'Date Created']
         self.response_body = build_csv_enumerator(header, @tickets)
