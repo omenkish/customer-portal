@@ -1,0 +1,21 @@
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;  padding: 15px;">
+      <div>
+        <h3 style="">Hi <%= @ticket.user.name %>, </h3>
+
+        <div>
+          <p>
+            Your <span style="color: #17a2b8; font-weight: bolder; text-underline: none"><%= link_to 'ticket', ticket_url(@ticket)%></span> with the title:
+            <span style="font-weight: bolder;"><%= @ticket.title %></span> has been resolved.
+          </p>
+
+          <p>Please follow the
+            <span style="color: #17a2b8; font-weight: bolder;"><%= link_to 'link', ticket_url(@ticket) %></span>
+              to see updates</p>
+        </div>
+      </div>
+      <div style="border-top: 0.3px solid #ccc; width: 100%; padding-top: 15px;">
+        Best Regards, <br><br>
+        Customer Portal Team
+      </div>
+    </div>

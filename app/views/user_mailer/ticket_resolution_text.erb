@@ -1,0 +1,9 @@
+
+    Hi <%= @ticket.user.name %>,
+    ================================================================================================
+    Your <%= link_to 'ticket', ticket_url(@ticket)%>
+    has been resolved. Please follow the <%= link_to 'link', ticket_url(@ticket) %> to see updates
+
+    ================================================================================================
+    Best Regards,
+    Customer Portal Team

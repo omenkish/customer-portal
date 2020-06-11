@@ -59,8 +59,10 @@ class TicketsController < ApplicationController
 
   def close_ticket
     return handle_redirect(tickets_url, "This ticket is already closed", :danger) if @ticket.closed?
-    @ticket.close
-    handle_redirect(request.referer || tickets_url, "Ticket closed successfully", :success)
+    if @ticket.close
+      UserMailer.with(ticket: @ticket).ticket_resolution.deliver_later
+      handle_redirect(request.referer || tickets_url, "Ticket closed successfully", :success)
+    end
   end
 
   def reopen_ticket

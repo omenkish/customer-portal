@@ -85,6 +85,7 @@ class UsersController < ApplicationController
 
     if @user_ticket.save
       unassigned_ticket.assign
+      UserMailer.with(agent: @user, ticket: unassigned_ticket).ticket_assignment.deliver_later
       handle_redirect(users_url, 'A ticket is now assigned to this agent', :success)
     else
       handle_redirect(users_url, 'Operation failed', :danger)

@@ -8,10 +8,10 @@ class Ticket < ApplicationRecord
   validates_presence_of :title, :description
   validates :status, inclusion: statuses.keys
 
-  delegate :owner, to: :ticket, prefix: :ticket
+  delegate :owner, to: :user, prefix: :ticket
 
   def self.recent
-    order("created_at DESC")
+    order("status ASC, created_at DESC")
   end
 
   def close
