@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  after_destroy :ensure_an_admin_remains
+
   enum role: {
     customer: 'customer',
     agent:    'agent',
@@ -21,6 +23,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true, confirmation: true
   validates :role, inclusion: roles.keys
 
+  class Error < StandardError; end
+
   def become_an_admin
     admin!
   end
@@ -41,5 +45,11 @@ class User < ApplicationRecord
   # Converts email to all lower-case.
   def downcase_email
     self.email = email.downcase
+  end
+
+  def ensure_an_admin_remains
+    if User.count.zero?
+      raise Error.new "Can't delete last user"
+    end
   end
 end

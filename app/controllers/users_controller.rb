@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 
   include RedirectUsers
 
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_user
+
   def index
     @page_title = 'index'
     @users = User.all
@@ -51,7 +53,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { handle_redirect(users_url, 'User was successfully destroyed.', :success) }
+      format.html { handle_redirect(login_url, 'User was successfully destroyed.', :success) }
     end
   end
 
@@ -106,4 +108,9 @@ class UsersController < ApplicationController
       @user = User.find_by(id: params[:id])
       handle_redirect(root_url, 'You cannot modify another user', :danger ) if current_user != @user
     end
+
+  def invalid_user
+    logger.error "Attempt to access invalid ticket #{params[:id]}"
+    handle_redirect(users_url, "Invalid user", :danger)
+  end
 end

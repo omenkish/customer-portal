@@ -9,4 +9,10 @@ module TicketsHelper
     end
     link_to_display
   end
+
+  def display_csv_button(tickets)
+    if !current_user.customer? && tickets.any?(&:closed?)
+      link_to "Download CSV", tickets_report_path(format: "csv"), { class: "btn btn-dark mb-4 offset-9" }
+    end
+  end
 end

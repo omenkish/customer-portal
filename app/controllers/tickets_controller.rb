@@ -11,7 +11,7 @@ class TicketsController < ApplicationController
     if current_user.customer?
       return @tickets = current_user.tickets.recent.page(params[:page]).per(5)
     end
-
+    @page_title = 'index' if current_user.admin?
     @tickets = Ticket.recent.page(params[:page]).per(5)
   end
 
@@ -34,7 +34,7 @@ class TicketsController < ApplicationController
     @ticket = current_user.tickets.build(ticket_params)
     if @ticket.save
       flash[:success] = "Your ticket has been created. We will get back to you as soon as possible"
-      return redirect_to @ticket
+      return redirect_to tickets_url
     end
 
     render "new"

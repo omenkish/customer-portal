@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CustomerPortal</title>
+    <title>Customer Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,7 +14,7 @@
   <body>
     <%= render partial: "shared/nav" %>
     <main class='space-header <%= controller.controller_name %> '>
-      <div class="col-lg-4 col-xl-4 col-md-4 mx-auto mt-5">
+      <div class="col-lg-5 col-xl-5 col-md-5 mx-auto <%= 'push-down' if @page_title.nil? %>">
         <%= render 'layouts/flash_message' if @page_title.nil? %>
       </div>
       <%= yield %>

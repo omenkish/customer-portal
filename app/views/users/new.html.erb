@@ -1,6 +1,7 @@
-<div class="col-lg-4 col-xl-4 col-md-4 mx-auto mt-5">
+<div class="col-lg-4 col-xl-4 col-md-4 mx-auto push-down">
   <h1>New User</h1>
 
   <%= render 'form', user: @user %>
+  <p>Already have an account? <%= link_to 'Log in', login_path, class: 'text text-info' %> </p>
 </div>
 

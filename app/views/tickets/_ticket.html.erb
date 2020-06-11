@@ -16,9 +16,9 @@
   <div class="card-footer">
     <div class="row">
       <div class="col-md-7">
-            <%= link_to "View", ticket, class: "btn btn-sm btn-secondary" %>
-            <%= link_to 'Edit', edit_ticket_path(ticket), class: "btn btn-sm btn-info" %>
-            <%= link_to 'Delete', ticket, method: :delete,
+            <%= link_to raw(fa_icon 'eye'), ticket, class: "btn btn-sm btn-secondary" %>
+            <%= link_to raw(fa_icon 'edit'), edit_ticket_path(ticket), class: "btn btn-sm btn-info" %>
+            <%= link_to raw(fa_icon 'trash'), ticket, method: :delete,
                         data: {confirm: 'Are you sure?'} ,
                         class: "btn btn-sm btn-danger"%>
       </div>

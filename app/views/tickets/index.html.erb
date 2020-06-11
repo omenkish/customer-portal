@@ -1,16 +1,20 @@
-<% if @tickets.any? %>
-  <h3 class="text-muted text-center mt-5"> All Tickets</h3>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render partial: 'users/admin_side_bar' if current_user.admin? %>
 
-<div class="col-lg-8 col-xl-8 col-md-8 mx-auto mt-3">
-  <div class="index-buttons">
-    <%= link_to "Create a Ticket", new_ticket_path, { class: "btn btn-outline-dark mb-4" } %>
-    <%= link_to "Download CSV", tickets_report_path(format: "csv"), { class: "btn btn-dark mb-4 offset-9" } unless current_user.customer? %>
+    <main role="main" class=" <%= current_user.admin? ? 'col-md-9 ml-sm-auto col-lg-10 px-md-5' : 'col-md-8 mx-sm-auto col-lg-8 ' %>">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5 border-bottom">
+        <h1 class="h2 mt-5">All Tickets</h1>
+      </div>
+      <div class="index-buttons">
+        <%= link_to "Create a Ticket", new_ticket_path, { class: "btn btn-outline-dark mb-4" } %>
+        <%= display_csv_button(@tickets) %>
+      </div>
+
+      <div>
+        <%= render @tickets %>
+        <%= paginate @tickets %>
+      </div>
+    </main>
   </div>
-
-  <div>
-    <%= render @tickets %>
-    <%= paginate @tickets %>
-  </div>
-
 </div>

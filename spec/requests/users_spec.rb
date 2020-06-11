@@ -136,6 +136,7 @@ RSpec.describe "/users", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested user" do
+      User.create(valid_attributes)
       post login_url, params: { email: valid_user.email, password: valid_user.password }
       expect {
         delete user_url(valid_user)
@@ -143,9 +144,10 @@ RSpec.describe "/users", type: :request do
     end
 
     it "redirects to the users list" do
+      User.create(valid_attributes)
       post login_url, params: { email: valid_user.email, password: valid_user.password }
       delete user_url(valid_user)
-      expect(response).to redirect_to(users_url)
+      expect(response).to redirect_to(login_url)
     end
   end
 

@@ -11,7 +11,9 @@
       <p class="text text-muted font-weight-bolder">
         Date Created: <span class="text-dark"><%= distance_of_time_in_words(@user.created_at, Time.now).capitalize %></span>
       </p>
-      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-sm btn-secondary' %>
+      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-sm btn-secondary' %> |
+      <%= link_to 'Back', :back, class: 'btn btn-sm btn-secondary'%>
+
     </div>
   </div>
 </div>

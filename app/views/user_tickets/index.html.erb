@@ -1,10 +1,19 @@
-<h3 class="text-muted text-center mt-5"> <%= current_user.admin? ? "All Assigned Tickets" : "Tickets assigned to me" if @user_tickets.any?%></h3>
 
-<div class="col-lg-8 col-xl-8 col-md-8 mx-auto mt-3">
-  <div>
-    <%=render partial: 'shared/empty_page', locals: {page_name: 'Tickets' } unless @user_tickets.any? %>
-    <%= render @user_tickets %>
-    <%= paginate @user_tickets %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render partial: 'users/admin_side_bar' if current_user.admin? %>
+
+    <main role="main" class=" <%= current_user.admin? ? 'col-md-9 ml-sm-auto col-lg-10 px-md-5' : 'col-md-8 mx-sm-auto col-lg-8 ' %>">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5 border-bottom">
+        <h1 class="h2 mt-5"> <%= current_user.admin? ? "All Assigned Tickets" : "Tickets assigned to me"%></h1>
+      </div>
+
+      <div>
+        <%=render partial: 'shared/empty_page', locals: {page_name: 'ticket' } unless @user_tickets.any? %>
+        <%= render @user_tickets %>
+        <%= paginate @user_tickets %>
+      </div>
+    </main>
   </div>
-
 </div>
+

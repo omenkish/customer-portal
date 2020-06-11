@@ -1,8 +1,8 @@
-<div class="col-lg-4 col-xl-4 col-md-4 mx-auto mt-5">
-  <h1>Editing User</h1>
+<div class="col-7 mx-auto">
+  <div class="my-4"><%= link_to raw("#{fa_icon('long-arrow-left')} Back"), :back, class: "text-muted" %><br></div>
+</div>
+<div class="col-lg-4 col-xl-4 col-md-4 mx-auto">
+  <h1>Edit User</h1>
 
   <%= render 'form', user: @user %>
-
-  <%= link_to 'Show', @user %> |
-    <%= link_to 'Back', users_path %>
 </div>
