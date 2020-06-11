@@ -20,6 +20,10 @@ RSpec.describe User, type: :model do
         ).backed_by_column_of_type(:string) }
 
     it { should allow_values(:customer, :agent, :admin).for(:role) }
+
+    it { should have_many(:tickets).dependent(:destroy) }
+
+    it { should have_many(:user_tickets).dependent(:destroy) }
   end
 
   describe 'User#become_an_admin' do

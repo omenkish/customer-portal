@@ -2,6 +2,16 @@
   <div class="card-body">
     <h5 class="card-title"><%= ticket.title %></h5>
     <p class="card-text"><%= ticket.description %></p>
+    <div class="ticket-footer">
+      <span>
+        Created by: <span class="ticket-name font-weight-bold"><%= ticket.owner %></span>
+        <%= distance_of_time_in_words(ticket.created_at, Time.now) %> ago
+      </span>
+
+      <span class="text <%= ticket.assigned? ? 'text-success' : 'text-danger' %>">
+        <%= ticket.assigned? ? 'Assigned to agent' : 'Not yet assigned' %>
+      </span>
+    </div>
   </div>
   <div class="card-footer">
     <div class="row">
@@ -11,7 +21,8 @@
             <%= link_to 'Delete', ticket, method: :delete,
                         data: {confirm: 'Are you sure?'} ,
                         class: "btn btn-sm btn-danger"%>
-        </div>
+      </div>
+
       <div class="col-md-5 d-flex justify-content-end align-items-center ">
         <div class="buttons">
           <button type="button" class="btn btn-sm btn-dark">

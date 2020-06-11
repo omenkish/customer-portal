@@ -1,9 +1,11 @@
-<h3 class="text-muted text-center mt-5"> All Tickets</h3>
+<% if @tickets.any? %>
+  <h3 class="text-muted text-center mt-5"> All Tickets</h3>
+<% end %>
 
 <div class="col-lg-8 col-xl-8 col-md-8 mx-auto mt-3">
   <div class="index-buttons">
-    <%= link_to "Create a Ticket", new_ticket_path, {class: "btn btn-outline-dark mb-4"} %>
-    <%= link_to "Download CSV", tickets_report_path(format: "csv"), {class: "btn btn-dark mb-4 offset-9"} unless current_user.customer? %>
+    <%= link_to "Create a Ticket", new_ticket_path, { class: "btn btn-outline-dark mb-4" } %>
+    <%= link_to "Download CSV", tickets_report_path(format: "csv"), { class: "btn btn-dark mb-4 offset-9" } unless current_user.customer? %>
   </div>
 
   <div>

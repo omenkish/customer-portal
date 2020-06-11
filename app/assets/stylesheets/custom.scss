@@ -64,10 +64,30 @@ a:hover {
   position: fixed;
   height: 100vh;
 }
+
 .not-found {
   height: 93.4vh;
   background-image: url("404.png");
   background-repeat: no-repeat;
   background-size: cover;
   margin-top: -3em;
+}
+
+.ticket-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 0.5px solid #ccc;
+  font-size: 13px;
+  padding-top: 6px;
+}
+
+.empty-page {
+  display: flex;
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-size: 2em;
+  }
 }

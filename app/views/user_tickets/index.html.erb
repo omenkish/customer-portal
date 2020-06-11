@@ -1,0 +1,10 @@
+<h3 class="text-muted text-center mt-5"> <%= current_user.admin? ? "All Assigned Tickets" : "Tickets assigned to me" if @user_tickets.any?%></h3>
+
+<div class="col-lg-8 col-xl-8 col-md-8 mx-auto mt-3">
+  <div>
+    <%=render partial: 'shared/empty_page', locals: {page_name: 'Tickets' } unless @user_tickets.any? %>
+    <%= render @user_tickets %>
+    <%= paginate @user_tickets %>
+  </div>
+
+</div>

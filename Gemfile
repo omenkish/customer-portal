@@ -51,7 +51,6 @@ group :test do
   gem 'webdrivers'
 
   gem 'factory_bot_rails', '~> 5.2'
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
   gem 'database_cleaner-active_record'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
@@ -61,4 +60,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.5'
 gem 'kaminari'
-gem 'rubyzip', require: 'zip'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem "font-awesome-rails"

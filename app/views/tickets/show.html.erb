@@ -9,7 +9,7 @@
   <hr />
 
   <div class="col-lg-11 col-xl-11 col-md-11 mx-auto">
-    <%= render 'comments/comments_form', id: @ticket.id %>
+    <%= render 'comments/comments_form', id: @ticket.id  if current_user.agent? || @ticket.comments.any? %>
   </div>
 
   <div id="comments" class=" <%= @ticket.comments.any? ? 'scroll' : nil %> col-lg-11 col-xl-11 col-md-11 mx-auto mt-5">

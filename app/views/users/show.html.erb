@@ -1,18 +1,17 @@
+<div class="col-lg-7 col-xl-7 col-md-7 mx-auto mt-5">
+  <div class="row profile-section">
+    <div class="col-md-6 profile-image">
+      <%= image_tag("profile.jpg", alt: "Profile Picture") %>
+    </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Role:</strong>
-  <%= @user.role %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+    <div class="col-md-6 profile-details">
+      <p class="text text-muted font-weight-bolder">Name: <span class="text-dark"><%= @user.name.capitalize %></span></p>
+      <p class="text text-muted font-weight-bolder">Email: <span class="text-dark"><%= @user.email %></span></p>
+      <p class="text text-muted font-weight-bolder">Role: <span class="text-dark"><%= @user.role.capitalize %></span></p>
+      <p class="text text-muted font-weight-bolder">
+        Date Created: <span class="text-dark"><%= distance_of_time_in_words(@user.created_at, Time.now).capitalize %></span>
+      </p>
+      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-sm btn-secondary' %>
+    </div>
+  </div>
+</div>

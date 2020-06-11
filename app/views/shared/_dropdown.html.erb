@@ -1,12 +1,12 @@
 <div class="dropdown">
   <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    My Actions
+    <%= current_user.first_name %>
   </a>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <%= link_to 'Profile', user_path(current_user),  class: 'dropdown-item' %>
     <%= link_to 'Edit Profile', edit_user_path(current_user),  class: 'dropdown-item' %>
-    <%= link_to 'Assigned Tickets', edit_user_path(current_user),  class: 'dropdown-item' if current_user.agent? %>
-    <a class="dropdown-item" href="#">Another action</a>
+    <%= link_to 'Assigned Tickets', user_tickets_path,  class: 'dropdown-item' unless current_user.customer? %>
     <div class="dropdown-divider"></div>
     <%= link_to 'Logout', logout_path, method: :delete,  class: 'dropdown-item' %>
   </div>

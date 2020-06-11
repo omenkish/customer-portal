@@ -3,6 +3,14 @@
   <td><%= user.email %></td>
   <td><%= user.role %></td>
   <td>
+    <% unless user.customer? %>
+      <span class="assign-ticket">
+        <%= user.user_tickets&.count %>
+        <%= link_to 'Assign Ticket', assign_ticket_user_path(user), class: 'btn btn-dark btn-sm' %>
+      </span>
+    <% end %>
+  </td>
+  <td>
     <div class="btn-group btn-group-toggle btn-sm" data-toggle="buttons">
       <%= admin_actions_helper(user) %>
     </div>

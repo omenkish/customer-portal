@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :user_tickets, only: :index
   root 'tickets#index'
   get '/register'  => 'users#new'
 
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   end
   resources :users, except: [:new] do
     member do
+      get :assign_ticket
       get :create_admin, as: 'admin'
       get :create_agent, as: 'agent'
       get :create_customer, as: 'customer'

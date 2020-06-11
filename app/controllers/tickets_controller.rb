@@ -33,7 +33,7 @@ class TicketsController < ApplicationController
   def create
     @ticket = current_user.tickets.build(ticket_params)
     if @ticket.save
-      flash[:success] = "Ticket was successfully created."
+      flash[:success] = "Your ticket has been created. We will get back to you as soon as possible"
       return redirect_to @ticket
     end
 
@@ -60,13 +60,13 @@ class TicketsController < ApplicationController
   def close_ticket
     return handle_redirect(tickets_url, "This ticket is already closed", :danger) if @ticket.closed?
     @ticket.close
-    handle_redirect(tickets_url, "Ticket closed successfully", :success)
+    handle_redirect(request.referer || tickets_url, "Ticket closed successfully", :success)
   end
 
   def reopen_ticket
     return handle_redirect(tickets_url, "This ticket is already active", :danger) if @ticket.active?
     @ticket.reopen
-    handle_redirect(tickets_url, "Ticket is now active", :success)
+    handle_redirect(request.referer || tickets_url, "Ticket is now active", :success)
   end
 
   def tickets_report

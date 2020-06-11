@@ -1,8 +1,18 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
-
 .users {
   margin-top: 0;
   padding-top: 1.5em;
+}
+.assign-ticket {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-section {
+  margin-top: 6em;
+  .profile-image {
+    img {
+      height: 40vh;
+      width: 100%;
+    }
+  }
 }

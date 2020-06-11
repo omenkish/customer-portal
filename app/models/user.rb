@@ -7,6 +7,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
 
   has_many :comments, dependent: :destroy
+  has_many :user_tickets, dependent: :destroy
   has_many :tickets, -> { order('created_at DESC') }, dependent: :destroy
 
   before_save :downcase_email
@@ -30,6 +31,10 @@ class User < ApplicationRecord
 
   def revoke_admin_or_agent_privilege
     customer!
+  end
+
+  def first_name
+    name.split(' ').first
   end
 
   private

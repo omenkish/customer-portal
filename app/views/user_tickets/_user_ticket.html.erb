@@ -1,0 +1,33 @@
+<div class="card mb-4 box-shadow">
+  <div class="card-body">
+    <h5 class="card-title"><%= user_ticket.ticket_title %></h5>
+    <p class="card-text"><%= user_ticket.ticket_description %></p>
+    <div class="ticket-footer">
+      <span>
+        Created by: <span class="ticket-name font-weight-bold"><%= user_ticket.ticket_owner %></span>
+        <%= distance_of_time_in_words(user_ticket.ticket_date, Time.now) %> ago
+      </span>
+      <span class="text <%= user_ticket.ticket_assigned ? 'text-success' : 'text-danger' %>">
+        <%= user_ticket.ticket_assigned ? 'Assigned to agent' : 'Not yet assigned' %>
+      </span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-md-7">
+        <%= link_to "View", user_ticket.ticket, class: "btn btn-sm btn-secondary" %>
+      </div>
+      <div class="col-md-5 d-flex justify-content-end align-items-center ">
+        <div class="buttons">
+          <button type="button" class="btn btn-sm btn-dark">
+            <%= toggle_ticket_status(user_ticket.ticket) %>
+          </button>
+        </div>
+        Status: &nbsp;
+        <span class="text text-<%= user_ticket.ticket.active? ? 'success' : 'danger' %> font-weight-bold">
+            <%= user_ticket.ticket_status.capitalize %>
+          </span>
+      </div>
+    </div>
+  </div>
+</div>

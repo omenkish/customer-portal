@@ -19,7 +19,7 @@ RSpec.describe "Sessions", type: :request do
   describe "GET /destroy" do
     it "returns http success" do
       delete "/logout"
-      expect(response).to redirect_to(root_url)
+      expect(response).to redirect_to(login_url)
     end
   end
 

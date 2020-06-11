@@ -16,6 +16,9 @@ RSpec.describe Ticket, type: :model do
         ).backed_by_column_of_type(:integer) }
 
     it { should allow_values(:active, :closed).for(:status) }
+
+    it { should belong_to(:user) }
+    it { should have_many(:user_tickets).dependent(:destroy) }
   end
 
   describe 'Ticket#close' do
@@ -42,6 +45,33 @@ RSpec.describe Ticket, type: :model do
       }.to change {
         ticket.active?
       }.to(true)
+    end
+  end
+
+  describe 'Ticket#owner' do
+    let(:ticket) { create(:ticket, user_id: user.id)}
+    let(:user) { create(:user) }
+
+    it 'validates delegation of name to ticket' do
+      expect(ticket.owner).to eq(user.name)
+    end
+  end
+
+  describe 'Ticket#assigned' do
+    let(:ticket) { create(:ticket, user_id: user.id)}
+    let(:user) { create(:user) }
+
+    context 'when ticket is not assigned' do
+      it 'should return false on querying assign' do
+        expect(ticket.assigned?).to be(false)
+      end
+    end
+
+    context 'when ticket is assigned' do
+      it 'assign ticket' do
+        ticket.assign
+        expect(ticket.assigned?).to be(true)
+      end
     end
   end
 end

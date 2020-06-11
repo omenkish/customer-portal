@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    redirect_to tickets_url if logged_in?
   end
 
   def create
@@ -15,7 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out if logged_in?
-    flash[:danger] = "Logged out successfully"
-    redirect_to root_url
+    flash[:success] = "Logged out successfully"
+    redirect_to login_url
   end
 end
