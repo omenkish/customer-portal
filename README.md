@@ -28,7 +28,7 @@ Take the following steps to setup the application on your local machine:
 
 ### Configuring the database
 
-_Note_ create and update Update your .env file with the following
+_Note_ create and update your .env file with the following
 
 ```yml
 DB_PASSWORD = 
@@ -84,7 +84,7 @@ You can also login as an agent or customer by using the same password as above b
 
 
 ## Limitations
-
+* The styling and UX can be greatly improved especially for smaller devices
 * Email configuration may need to be updated for production
 * Given that rails is well optimized for Postgres, I am wondering why we chose to use MySQL
 
