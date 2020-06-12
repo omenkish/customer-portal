@@ -18,7 +18,7 @@ In order to install and run this project locally, you would need to have the fol
 
 Take the following steps to setup the application on your local machine:
 
-- Run `git clone https://github.com/omenkish/ticket-system.git` to clone this repository
+- Run `git clone https://github.com/omenkish/customer-portal.git` to clone this repository
 
 - Run `bundle install` to install all required gems
 
@@ -80,6 +80,7 @@ You can also login as an agent or customer by using the same password as above b
 * Send email to the owner of the ticket when the email is resolved
 * For the sake of scalability, I implemented comments with rails action cable.
 * I implemented the csv export with rails stream
+* I assumed that an admin and an agent can also create tickets.
 
 
 ## Limitations

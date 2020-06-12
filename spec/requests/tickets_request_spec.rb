@@ -36,6 +36,9 @@ RSpec.describe "Tickets", type: :request do
 
   describe "GET #close_ticket" do
     it "marks a ticket as closed" do
+      user.agent!
+
+      post login_path, params: { email: user.email, password: user.password  }
       get close_ticket_path(ticket)
       expect {
         expect(response).to redirect_to(tickets_path)
@@ -47,6 +50,7 @@ RSpec.describe "Tickets", type: :request do
 
     context "ticket is already closed" do
       it "returns 400 status code" do
+        post login_path, params: { email: user.email, password: user.password  }
         ticket.update_attribute("status", 1)
 
         get close_ticket_path(ticket)
@@ -63,6 +67,7 @@ RSpec.describe "Tickets", type: :request do
   describe "GET #reopen_ticket" do
     context "ticket is already active" do
       it "returns 400 status code" do
+        post login_path, params: { email: user.email, password: user.password  }
         get reopen_ticket_path(ticket)
         expect {
           expect(response).to redirect_to(tickets_path)
@@ -74,7 +79,11 @@ RSpec.describe "Tickets", type: :request do
     end
 
     it "marks ticket as active" do
+      user.admin!
       ticket.update_attribute("status", 1)
+
+
+      post login_path, params: { email: user.email, password: user.password  }
 
       get reopen_ticket_path(ticket)
       expect {

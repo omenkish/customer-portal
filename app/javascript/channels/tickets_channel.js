@@ -14,6 +14,8 @@ consumer.subscriptions.create("TicketsChannel", {
     const div = document.createElement("div");
     div.innerHTML = data.comments;
     commentsTag.insertBefore(div, commentsTag.firstChild);
-    // Called when there's incoming data on the websocket for this channel
+
+    const comment = document.getElementById('comment_content');
+    comment.value = '';
   }
 });

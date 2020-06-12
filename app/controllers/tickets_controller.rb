@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy close_ticket reopen_ticket]
-  before_action :logged_in_user, only: %i[index create destroy]
+  before_action :logged_in_user, only: %i[index new create destroy close_ticket reopen_ticket tickets_report]
   before_action :correct_user, only: %i[destroy edit update]
 
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_ticket
@@ -59,6 +59,8 @@ class TicketsController < ApplicationController
 
   def close_ticket
     return handle_redirect(tickets_url, "This ticket is already closed", :danger) if @ticket.closed?
+
+    return handle_redirect(tickets_url, "You cannot perform this action", :danger) if current_user.customer?
     if @ticket.close
       UserMailer.with(ticket: @ticket).ticket_resolution.deliver_later
       handle_redirect(request.referer || tickets_url, "Ticket closed successfully", :success)
@@ -67,6 +69,8 @@ class TicketsController < ApplicationController
 
   def reopen_ticket
     return handle_redirect(tickets_url, "This ticket is already active", :danger) if @ticket.active?
+
+    return handle_redirect(tickets_url, "You cannot perform this action", :danger) if current_user.customer?
     @ticket.reopen
     handle_redirect(request.referer || tickets_url, "Ticket is now active", :success)
   end

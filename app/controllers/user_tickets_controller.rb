@@ -4,6 +4,8 @@ class UserTicketsController < ApplicationController
 
     return @user_tickets = current_user.user_tickets.page(params[:page]).per(5) if current_user&.agent?
 
+    @page_title = 'index'
+
     @user_tickets = UserTicket.all.page(params[:page]).per(5)
   end
 

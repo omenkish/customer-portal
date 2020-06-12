@@ -25,9 +25,7 @@
 
       <div class="col-md-5 d-flex justify-content-end align-items-center ">
         <div class="buttons">
-          <button type="button" class="btn btn-sm btn-dark">
-            <%= toggle_ticket_status(ticket) %>
-          </button>
+          <%= toggle_ticket_status(ticket) %> &nbsp;
         </div>
         Status: &nbsp;
           <span class="text text-<%= ticket.active? ? 'success' : 'danger' %> font-weight-bold">

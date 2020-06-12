@@ -32,7 +32,7 @@ class UsersController < ApplicationController
         format.html do
           log_in(@user)
           flash[:success] = 'Your account has been created successfully'
-          return redirect_back_or(@user)
+          return redirect_back_or(users_url)
         end
       else
         format.html { render :new }
