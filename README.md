@@ -50,7 +50,7 @@ EMAIL_PASSWORD =
   ```bash
   rails db:migrate
   ```
-- Create 3 uses with the 3 different roles each  by running
+- Create 3 users with the 3 different roles each by running
     ```bash
       rails db:seed
     ```
